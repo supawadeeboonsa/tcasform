@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Student } from "../store/studentStore";
 import useStudentStore from "../store/studentStore";
 import { v4 as uuidv4 } from "uuid";
+import Image from "next/image";
 
 export default function StudentForm() {
   const addStudent = useStudentStore((state) => state.addStudent);
@@ -64,11 +65,8 @@ export default function StudentForm() {
     };
 
     addStudent(newStudent);
-
-    // redirect ไปหน้า success
     router.push("/success");
 
-    // reset form (optional, เพราะ redirect แล้ว)
     setForm({
       firstName: "",
       lastName: "",
@@ -89,6 +87,7 @@ export default function StudentForm() {
       onSubmit={handleSubmit}
       className="space-y-4 max-w-lg mx-auto p-6 border border-gray-300 rounded-xl shadow-md bg-white text-gray-400"
     >
+      {/* Fields */}
       <input
         name="firstName"
         value={form.firstName}
@@ -171,11 +170,14 @@ export default function StudentForm() {
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-400"
       />
       {form.photo && (
-        <img
-          src={URL.createObjectURL(form.photo)}
-          alt="preview"
-          className="w-32 h-32 object-cover mt-2 border rounded-md"
-        />
+        <div className="w-32 h-32 relative mt-2 border rounded-md overflow-hidden">
+          <Image
+            src={URL.createObjectURL(form.photo)}
+            alt="preview"
+            fill
+            className="object-cover"
+          />
+        </div>
       )}
 
       <button

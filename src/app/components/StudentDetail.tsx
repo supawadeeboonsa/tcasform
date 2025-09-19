@@ -1,5 +1,6 @@
 "use client";
-import useStudentStore, { Student } from "../store/studentStore";
+import useStudentStore from "../store/studentStore";
+import Image from "next/image";
 
 interface Props {
   studentId: string;
@@ -26,19 +27,20 @@ export default function StudentDetail({ studentId }: Props) {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-gradient-to-br from-blue-50/80 to-purple-50/80 backdrop-blur-xl border-2 border-blue-200/50 rounded-2xl shadow-2xl space-y-6">
-      {/* หัวเรื่อง: ใส่สีฟอนต์ตรงนี้ได้ */}
       <h2 className="text-3xl font-bold text-center mb-6 text-slate-800">
-        {/* หรือจะใช้สีแบบกำหนดเอง เช่น text-blue-600 */}
         {student.firstName} {student.lastName}
       </h2>
 
       <div className="flex justify-center mb-8">
         {student.photo ? (
-          <img
-            src={student.photo}
-            alt={`${student.firstName} ${student.lastName}`}
-            className="w-40 h-40 object-cover rounded-full border-4 border-blue-300/60 shadow-xl"
-          />
+          <div className="w-40 h-40 relative rounded-full border-4 border-blue-300/60 shadow-xl overflow-hidden">
+            <Image
+              src={student.photo}
+              alt={`${student.firstName} ${student.lastName}`}
+              fill
+              className="object-cover"
+            />
+          </div>
         ) : (
           <div className="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center border-4">
             <span className="text-gray-500 text-5xl">👤</span>
