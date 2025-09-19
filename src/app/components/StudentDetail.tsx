@@ -1,6 +1,6 @@
 "use client";
-import useStudentStore from "../store/studentStore";
 import Image from "next/image";
+import useStudentStore from "../store/studentStore";
 
 interface Props {
   studentId: string;
@@ -33,12 +33,12 @@ export default function StudentDetail({ studentId }: Props) {
 
       <div className="flex justify-center mb-8">
         {student.photo ? (
-          <div className="w-40 h-40 relative rounded-full border-4 border-blue-300/60 shadow-xl overflow-hidden">
+          <div className="relative w-40 h-40">
             <Image
               src={student.photo}
               alt={`${student.firstName} ${student.lastName}`}
               fill
-              className="object-cover"
+              className="object-cover rounded-full border-4 border-blue-300/60 shadow-xl"
             />
           </div>
         ) : (
@@ -53,37 +53,30 @@ export default function StudentDetail({ studentId }: Props) {
           <span className="block text-sm font-semibold mb-1 text-blue-700">ที่อยู่</span>
           <p className="text-slate-700">{student.address}</p>
         </div>
-
         <div className="bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">เบอร์โทรศัพท์</span>
           <p className="text-slate-700">{student.phone}</p>
         </div>
-
         <div className="bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">โรงเรียน</span>
           <p className="text-slate-700">{student.school}</p>
         </div>
-
         <div className="bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">GPA</span>
           <p className={getGpaColor(student.gpa)}>{student.gpa.toFixed(2)}</p>
         </div>
-
         <div className="md:col-span-2 bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">ความสามารถพิเศษ</span>
           <p className="text-slate-700">{student.skills}</p>
         </div>
-
         <div className="md:col-span-2 bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">เหตุผลในการสมัคร</span>
           <p className="text-slate-700">{student.reason}</p>
         </div>
-
         <div className="bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">สาขาที่เลือก</span>
           <p className="text-slate-700">{student.major}</p>
         </div>
-
         <div className="bg-white/70 p-4 rounded-xl border">
           <span className="block text-sm font-semibold mb-1 text-blue-700">มหาวิทยาลัย</span>
           <p className="text-slate-700">{student.university}</p>

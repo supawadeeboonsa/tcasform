@@ -26,13 +26,10 @@ export default function StudentForm() {
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  ) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, photo: e.target.files ? e.target.files[0] : null });
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,10 +38,7 @@ export default function StudentForm() {
       return;
     }
 
-    let photoUrl = "";
-    if (form.photo) {
-      photoUrl = URL.createObjectURL(form.photo);
-    }
+    const photoUrl = form.photo ? URL.createObjectURL(form.photo) : "";
 
     const newStudent: Student = {
       id: uuidv4(),
@@ -66,7 +60,6 @@ export default function StudentForm() {
 
     addStudent(newStudent);
     router.push("/success");
-
     setForm({
       firstName: "",
       lastName: "",
@@ -87,7 +80,6 @@ export default function StudentForm() {
       onSubmit={handleSubmit}
       className="space-y-4 max-w-lg mx-auto p-6 border border-gray-300 rounded-xl shadow-md bg-white text-gray-400"
     >
-      {/* Fields */}
       <input
         name="firstName"
         value={form.firstName}
@@ -164,18 +156,18 @@ export default function StudentForm() {
       {/* Upload รูป */}
       <input
         type="file"
-        name="photo"
         accept="image/*"
         onChange={handlePhotoChange}
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-400"
       />
+
       {form.photo && (
-        <div className="w-32 h-32 relative mt-2 border rounded-md overflow-hidden">
+        <div className="relative w-32 h-32 mt-2">
           <Image
             src={URL.createObjectURL(form.photo)}
             alt="preview"
             fill
-            className="object-cover"
+            className="object-cover rounded-md border"
           />
         </div>
       )}
